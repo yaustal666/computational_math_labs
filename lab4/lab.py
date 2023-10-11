@@ -44,32 +44,54 @@ def Simpson_integral(a, b, steps):
 
     return step/3 * (myf(a) + 4*k1 + 2*k2)
 
+left = 0.4
+right = 0.9
 print('\nleft squares result:')
-print(squares_left_integral(0, 5, 0.01))
-print(squares_left_integral(0, 5, 0.001))
-print(squares_left_integral(0, 5, 0.0001))
-print(squares_left_integral(0, 5, 0.00001))
+print(squares_left_integral(left, right, 0.1))
+print(squares_left_integral(left, right, 0.001))
+print(squares_left_integral(left, right, 0.0001))
+print(squares_left_integral(left, right, 0.00001))
 
 print('\nright squares result: ')
-print(squares_right_integral(0, 5, 0.01))
-print(squares_right_integral(0, 5, 0.001))
-print(squares_right_integral(0, 5, 0.0001))
-print(squares_right_integral(0, 5, 0.00001))
+print(squares_right_integral(left, right, 0.01))
+print(squares_right_integral(left, right, 0.001))
+print(squares_right_integral(left, right, 0.0001))
+print(squares_right_integral(left, right, 0.00001))
 
 print('\ntrapezoid result: ')
-print(trapezoid_integral(0, 5, 0.01))
-print(trapezoid_integral(0, 5, 0.001))
-print(trapezoid_integral(0, 5, 0.0001))
-print(trapezoid_integral(0, 5, 0.00001))
+print(trapezoid_integral(left, right, 0.01))
+print(trapezoid_integral(left, right, 0.001))
+print(trapezoid_integral(left, right, 0.0001))
+print(trapezoid_integral(left, right, 0.00001))
 
 print('\nSimpson result: ')
-print(Simpson_integral(0, 5, 2))
-print(Simpson_integral(0, 5, 4))
-print(Simpson_integral(0, 5, 8))
-print(Simpson_integral(0, 5, 20))
-print(Simpson_integral(0, 5, 40))
-print(Simpson_integral(0, 5, 100))
-print(Simpson_integral(0, 5, 1000))
-print(Simpson_integral(0, 5, 10000))
+print(Simpson_integral(left, right, 2))
+print(Simpson_integral(left, right, 4))
+print(Simpson_integral(left, right, 8))
+print(Simpson_integral(left, right, 20))
+print(Simpson_integral(left, right, 40))
+print(Simpson_integral(left, right, 100))
+print(Simpson_integral(left, right, 1000))
+print(Simpson_integral(left, right, 10000))
 
-print('\ntrue result: ', quad(myf, 0, 5))
+
+def Gauss3(a, b):
+
+    t = [0.774597, 0 , -0.774597]
+    c = [5/9, 8/9, 5/9]
+
+    k = (b - a) / 2
+
+    res = 0
+    for i in range(3):
+        x = (b + a)/2 + k*t[i]
+
+        res += c[i] * myf(x)
+    
+    res *= k
+    return res
+
+print("\nGauss3 result :")
+print(Gauss3(left, right))
+
+print('\ntrue result: ', quad(myf, left, right))
