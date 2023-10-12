@@ -91,7 +91,19 @@ def Gauss3(a, b):
     res *= k
     return res
 
+def Gauss3_extended(a, b, step):
+    i = a
+    res = 0
+    while i < b - step:
+        res += Gauss3(i, i + step)
+        i += step
+    
+    return res
+
 print("\nGauss3 result :")
 print(Gauss3(left, right))
+
+print("\nGauss3_extended result :")
+print(Gauss3_extended(left, right, 0.1))
 
 print('\ntrue result: ', quad(myf, left, right))
