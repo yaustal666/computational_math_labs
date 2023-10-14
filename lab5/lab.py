@@ -74,3 +74,53 @@ up = [0, 1, -5, 2]
 f = [-5, -18, -40, -27]
 
 print(solve_system(down, mid, up, f, 2))
+
+a1 = -1/2
+b1 = -5/2
+
+a2 = -5/(10 + a1*1)
+b2 = (-18 - 1*b1) / (10 + a1*1)
+
+a3 = 2/(-5 + a2*1)
+b3 = (-40 - 1*b2) / (-5 + a2*1)
+
+b4 = (-27 - 1*b3) / (4 + a3*1)
+
+print(a1, b1)
+print(a2, b2)
+print(a3, b3)
+print(b4)
+
+class Fraction:
+
+    def __init__(self, up, down = 1) -> None:
+        self.up = up
+        self.down = down
+    
+
+    def __add__(self, other):
+        if isinstance(other, Fraction):
+            self.up = self.up * other.down + other.up * self.down
+            self.down = self.down * other.down
+        else:
+            self.up = self.up + other * self.own
+
+    def __sub__(self, other):
+        if isinstance(other, Fraction):
+            self.up = self.up * other.down - other.up * self.down
+            self.down = self.down * other.down
+        else:
+            self.up = self.up - other * self.own
+
+    def __mul__(self, other):
+        if isinstance(other, Fraction):
+            self.up = self.up * other.up
+            self.down = self.down * other.down
+        else:
+            self.up *= other
+
+
+    def __trudiv__(self, other):
+        self.up = self.up * other.up
+        self.up = self.down * other.down
+            
