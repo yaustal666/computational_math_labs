@@ -89,7 +89,33 @@ print(n1, n2)
 
 with open("result.txt", "w", encoding="utf-8") as file:
     file.write("Result of the first lab\n")
-    file.write("------L       R      rmin      rmax\n")
-    file.write(str(l1) + " " + str(r1) + " " + str(r1min) + " " + str(r1max))
+    file.write("------L(x*)       R(x*)      rmin      rmax\n")
+    file.write("(1) ")
+    file.write(str(l1) + "  " + str(r1) + "   " + str(r1min) + "   " + str(r1max))
     file.write("\n\n")
-    file.write(str(l2) + " " + str(r2) + " " + str(r2min) + " " + str(r2max))
+    file.write("(2) ")
+    file.write(str(l2) + "  " + str(r2) + "   " + str(r2min) + "   " + str(r2max))
+
+
+def LagrangeN(a, b, n):
+    h = (b - a) / n
+
+    def inner(x):
+        k = a
+        xn = []
+        i = 0
+        while k <= b:
+            xn.append(k + h * i)
+            i += 1
+
+        res = 0
+        for i in range(n):
+            k = myfunc(i)
+            for j in range(n):
+                k *= x - xn[i]
+            for j in range(n):
+                k /= xn[i] - xn[j]
+
+            res += k
+        return res
+    return inner

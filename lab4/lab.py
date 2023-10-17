@@ -87,11 +87,75 @@ def Gauss3(a, b):
         x = (b + a)/2 + k*t[i]
 
         res += c[i] * myf(x)
-    
+
     res *= k
+    return res
+
+def Gauss3_extended(a, b, step):
+    i = a
+    res = 0
+    while i < b - step:
+        res += Gauss3(i, i + step)
+        i += step
+
     return res
 
 print("\nGauss3 result :")
 print(Gauss3(left, right))
 
+print("\nGauss3_extended result :")
+print(Gauss3_extended(left, right, 0.1))
+
 print('\ntrue result: ', quad(myf, left, right))
+
+h = [0.1, 0.01, 0.001, 0.0001, 0.00001]
+with open("res.txt", "w", encoding="utf=8") as f:
+    f.write("Results:\n")
+    f.write("Right squares:\n")
+
+    for i in h:
+        f.write("h=")
+        f.write(str(i))
+        f.write("       ")
+        f.write(str(squares_right_integral(left, right, i)))
+        f.write('\n')
+
+    f.write('\n')
+    f.write("Left squares:\n")
+
+    for i in h:
+        f.write("h=")
+        f.write(str(i))
+        f.write("       ")
+        f.write(str(squares_left_integral(left, right, i)))
+        f.write('\n')
+
+    f.write('\n')
+    f.write("Trapezoid:\n")
+
+    for i in h:
+        f.write("h=")
+        f.write(str(i))
+        f.write("       ")
+        f.write(str(trapezoid_integral(left, right, i)))
+        f.write('\n')
+
+    f.write('\n')
+    f.write("Simpson:\n")
+
+    for i in [2, 4, 10, 1000, 10000]:
+        f.write("h=")
+        f.write(str(i))
+        f.write("       ")
+        f.write(str(Simpson_integral(left, right, i)))
+        f.write('\n')
+
+    f.write('\n')
+    f.write("Gauss:\n")
+
+    f.write(str(Gauss3(left, right)))
+
+    f.write('\n\n')
+    f.write("Gauss_ext:\n")
+    f.write('h = 0.1      ')
+    f.write(str(Gauss3_extended(left, right, 0.1)))

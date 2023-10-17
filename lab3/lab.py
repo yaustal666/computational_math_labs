@@ -7,7 +7,7 @@ def fn(n):
 
     dx = lambdify(x, a)
 
-    return dx 
+    return dx
 
 f = fn(0)
 f2 = fn(2)
@@ -31,18 +31,6 @@ h = 1
 l = Lagr4Drvn(xn, h, 0)
 l2 = Lagr4Drvn(xn, h, 2)
 
-with open("lafrange_poly_compare.out", "w", encoding="utf-8") as file:
-    i = 20
-    while i < 24.1 :
-        file.write(str(i))
-        file.write(" : ")
-        file.write("f:")
-        file.write(str(f2(i)))
-        file.write(" --- L:")
-        file.write(str(l2(i)))
-        file.write("\n---------------------------------------------\n")
-        i = round(i + 0.1, 2)
-
 def R4Drv(xn:list, n):
 
     x, y = symbols('x y')
@@ -63,3 +51,24 @@ xmax = 20
 
 r2min = r2(xmin, xmin)
 r2max = r2(xmax, xmax)
+
+with open("lafrange_poly_compare.txt", "w", encoding="utf-8") as file:
+    i = 0.4
+    while i <= 0.9 :
+        file.write(str(i))
+        file.write(" : ")
+        file.write("f'': ")
+        file.write(str(f2(i)))
+        file.write("\n")
+        file.write("----- L'': ")
+        file.write(str(l2(i)))
+        file.write("\n---------------------------------------------\n")
+        i = round(i + 0.05, 2)
+    file.write("Rmin: ")
+    file.write(str(r2min))
+    file.write("\n")
+    file.write("R: ")
+    file.write(str(r2real))
+    file.write("\n")
+    file.write("Rmax: ")
+    file.write(str(r2max))
