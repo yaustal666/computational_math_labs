@@ -14,11 +14,12 @@ def mixed_method(a, b, eps):
     j = b
     while True:
         j = j - myf(j) / myfd(j)
-        i = i - ((myf(i) * (j - i)) / ( myf(j) - myf(i)))
+        i = i - ((myf(i) * (j - i)) / (myf(j) - myf(i)))
 
         if abs(j - i) < eps:
             break
     return j
+
 
 ab1 = [0.5, 0.6]
 ab2 = [21.9, 21.99]

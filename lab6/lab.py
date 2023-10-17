@@ -1,4 +1,5 @@
 from math import cos, sin, pi
+
 # import matplotlib.pyplot as pp
 
 
@@ -104,32 +105,35 @@ def Spline():
     s = []
 
     for i in range(len(alpha)):
-        s.append(f"{y[i]} + {myf_der_2(x[i])} * (x - xi) + {alpha[i]} * (x - xi) ** 2 / 2 + {beta[i]} * (x - xi) ** 3 / 6")
+        s.append(
+            f"{y[i]} + {myf_der_2(x[i])} * (x - xi) + {alpha[i]} * (x - xi) ** 2 / 2 + {beta[i]} * (x - xi) ** 3 / 6"
+        )
 
-    print('m:')
+    print("m:")
     k = 0
     for i in m:
         print(f"m{k}", i)
         k += 1
 
-    print('alpha:')
+    print("alpha:")
     k = 0
     for i in alpha:
         print(f"alpha{k}", i)
         k += 1
 
-    print('beta:')
+    print("beta:")
     k = 0
     for i in beta:
         print(f"beta{k}", i)
         k += 1
 
     with open("res.txt", "w", encoding="utf-8") as f:
-        k=0
+        k = 0
         for i in s:
             f.write(f"S{k} = ")
             f.write(i)
             f.write("\n")
             k += 1
+
 
 Spline()

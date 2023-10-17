@@ -3,7 +3,6 @@ class Fraction:
     def __init__(self, up, down = 1) -> None:
         self.up = up
         self.down = down
-
     def __neg__(self) -> None:
         res = Fraction(self.up, self.down)
         res.up = -res.up
@@ -11,7 +10,6 @@ class Fraction:
         res.norm()
 
         return res
-
     def __add__(self, other) -> None:
         res = Fraction(self.up, self.down)
         if isinstance(other, Fraction):
@@ -21,7 +19,6 @@ class Fraction:
             res.up = self.up + other * self.own
 
         res.norm()
-
         return res
 
     def __sub__(self, other) -> None:
@@ -35,7 +32,6 @@ class Fraction:
         res.norm()
 
         return res
-
     def __mul__(self, other) -> None:
         res = Fraction(self.up, self.down)
         if isinstance(other, Fraction):
@@ -43,7 +39,6 @@ class Fraction:
             res.down = self.down * other.down
         else:
             res.up *= other
-
         res.norm()
 
         return res
@@ -104,7 +99,6 @@ def solve_system_r(down, mid, up, f):
     for i in range(n-2, -1, -1):
         res[i] = alp[i] * res[i + 1] + bet[i]
 
-
     return res
 
 def solve_system(down, mid, up, f):
@@ -133,7 +127,6 @@ def solve_system(down, mid, up, f):
 
     for i in range(n-2, -1, -1):
         res[i] = alp[i] * res[i + 1] + bet[i]
-
     for i in range(len(res)):
         res[i] = res[i].calculate()
 
