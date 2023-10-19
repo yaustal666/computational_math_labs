@@ -6,7 +6,7 @@ def myf(x):
     return x * x - cos(0.5 * pi * x)
 
 
-def squares_left_integral(a, b, step):
+def sli(a, b, step):
     i = a
     res = 0
     while i < b + step:
@@ -15,7 +15,24 @@ def squares_left_integral(a, b, step):
     return res
 
 
-def squares_right_integral(a, b, step):
+def squares_left_integral(a, b, eps):
+    i = a
+    step = 0.25
+
+    prev = sli(a, b, step)
+
+    step /= 2
+    res = sli(a, b, step)
+
+    while abs(prev - res) > eps:
+        prev = res
+        step /= 2
+        res = sli(a, b, step)
+
+    return res
+
+
+def sri(a, b, step):
     i = a
     res = 0
     while i < b:
@@ -24,7 +41,24 @@ def squares_right_integral(a, b, step):
     return res
 
 
-def trapezoid_integral(a, b, step):
+def squares_right_integral(a, b, eps):
+    i = a
+    step = 0.25
+
+    prev = sri(a, b, step)
+
+    step /= 2
+    res = sri(a, b, step)
+
+    while abs(prev - res) > eps:
+        prev = res
+        step /= 2
+        res = sli(a, b, step)
+
+    return res
+
+
+def tri(a, b, step):
     i = a
     res = 0
     while i < b:
@@ -37,7 +71,24 @@ def trapezoid_integral(a, b, step):
     return res
 
 
-def Simpson_integral(a, b, steps):
+def trapezoid_integral(a, b, eps):
+    i = a
+    step = 0.25
+
+    prev = tri(a, b, step)
+
+    step /= 2
+    res = tri(a, b, step)
+
+    while abs(prev - res) > eps:
+        prev = res
+        step /= 2
+        res = sli(a, b, step)
+
+    return res
+
+
+def Simpi(a, b, steps):
     step = (b - a) / steps
 
     k1 = 0
@@ -48,6 +99,23 @@ def Simpson_integral(a, b, steps):
         k2 += myf(a + (i + 1) * step)
 
     return step / 3 * (myf(a) + 4 * k1 + 2 * k2)
+
+
+def Simpson_integral(a, b, eps):
+    i = a
+    steps = 2
+
+    prev = Simpi(a, b, steps)
+
+    steps *= 2
+    res = Simpi(a, b, steps)
+
+    while abs(prev - res) > eps:
+        prev = res
+        steps *= 2
+        res = Simpi(a, b, steps)
+
+    return res
 
 
 def Gauss3(a, b):
@@ -66,10 +134,28 @@ def Gauss3(a, b):
     return res
 
 
-def Gauss3_extended(a, b, step):
-    i = a
+def Gauss3_extended(a, b, eps):
+    prev = Gauss3(a, b)
+
+    step = (b - a) / 2
     res = 0
-    while i < b - step:
-        res += Gauss3(i, i + step)
-        i += step
+    i = 0
+    while i < 2:
+        res += Gauss3(a + i * step, a + (i + 1) * step)
+        i += 1
+
+    i = 2
+    while abs(res - prev) > eps:
+        print(abs(res - prev))
+        prev = res
+        res = 0
+        step = (b - a) / pow(2, i)
+        j = 0
+
+        while j < pow(2, i):
+            res += Gauss3(a + i * step, a + (i + 1) * step)
+            j += 1
+
+        i += 1
+
     return res
