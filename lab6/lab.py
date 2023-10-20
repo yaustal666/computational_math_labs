@@ -1,7 +1,5 @@
 from math import cos, sin, pi
 
-# import matplotlib.pyplot as pp
-
 
 def myf(x):
     return x**2 - cos(0.5 * pi * x)
@@ -43,12 +41,11 @@ def solve_system_r(down, mid, up, f):
     return res
 
 
-def Spline():
+def Spline(n):
     a = 0.4
     b = 0.9
 
-    n = 10
-    h = 0.05
+    h = (b - a) / n
     mu = 0.5
     lm = 0.5
 
@@ -86,13 +83,13 @@ def Spline():
 
     f.append(myf_der_2(x[n]) / 4 + (3 / 2) * (y[n] - y[n - 1]))
 
-    print(up)
-    print("\n")
-    print(mid)
-    print("\n")
-    print(down)
-    print("\n")
-    print(f)
+    # print(up)
+    # print("\n")
+    # print(mid)
+    # print("\n")
+    # print(down)
+    # print("\n")
+    # print(f)
 
     m = solve_system_r(down, mid, up, f)
     alpha = []
@@ -106,26 +103,26 @@ def Spline():
 
     for i in range(len(alpha)):
         s.append(
-            f"{y[i]} + {myf_der_2(x[i])} * (x - xi) + {alpha[i]} * (x - xi) ** 2 / 2 + {beta[i]} * (x - xi) ** 3 / 6"
+            f"{y[i]} + {myf_der_2(x[i])}*(x - x{i}) + {alpha[i]}*(x - x{i})**2 / 2 + {beta[i]}*(x - x{i})**3 / 6"
         )
 
-    print("m:")
-    k = 0
-    for i in m:
-        print(f"m{k}", i)
-        k += 1
+    # print("m:")
+    # k = 0
+    # for i in m:
+    #     print(f"m{k}", i)
+    #     k += 1
 
-    print("alpha:")
-    k = 0
-    for i in alpha:
-        print(f"alpha{k}", i)
-        k += 1
+    # print("alpha:")
+    # k = 0
+    # for i in alpha:
+    #     print(f"alpha{k}", i)
+    #     k += 1
 
-    print("beta:")
-    k = 0
-    for i in beta:
-        print(f"beta{k}", i)
-        k += 1
+    # print("beta:")
+    # k = 0
+    # for i in beta:
+    #     print(f"beta{k}", i)
+    #     k += 1
 
     with open("res.txt", "w", encoding="utf-8") as f:
         k = 0
@@ -136,4 +133,4 @@ def Spline():
             k += 1
 
 
-Spline()
+Spline(10)
